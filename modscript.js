@@ -24,6 +24,13 @@ const handleOnUp = () => {
   const closestImage = images[closestImageIndex];
 
   // Now closestImage is the image closest to the center
+
+  // Smoothly move this image to the center of the screen
+  closestImage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  // Scale up the image so that its width is equal to the screen width
+  const scale = window.innerWidth / closestImage.offsetWidth;
+  closestImage.style.transform = `scale(${scale})`;
 }
 
 const handleOnMove = e => {
