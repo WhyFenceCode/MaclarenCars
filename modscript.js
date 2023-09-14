@@ -1,21 +1,6 @@
 const track = document.getElementById("image-track");
-let isScaled = false; // Add this line to keep track of whether the image is scaled up or not
 
-const handleOnDown = e => {
-  track.dataset.mouseDownAt = e.clientX;
-  
-  if (isScaled) { // Add this block to scale down the image when the mouse is clicked
-    for(const image of track.getElementsByClassName("image")) {
-      image.animate({
-        objectPosition: `${100}% center`,
-        objectFit: 'none', // Reset objectFit
-        height: 'auto', // Reset height
-        width: 'auto' // Reset width
-      }, { duration: 1200, fill: "forwards" });
-    }
-    isScaled = false;
-  }
-};
+const handleOnDown = e => track.dataset.mouseDownAt = e.clientX;
 
 const handleOnUp = () => {
   track.dataset.mouseDownAt = "0";  
@@ -41,7 +26,6 @@ const handleOnUp = () => {
   // Now closestImage is the image closest to the center
 }
 
-
 const handleOnMove = e => {
   if(track.dataset.mouseDownAt === "0") return;
   
@@ -65,9 +49,16 @@ const handleOnMove = e => {
   }
 }
 
+/* -- Had to add extra lines for touch events -- */
+
 window.onmousedown = e => handleOnDown(e);
+
 window.ontouchstart = e => handleOnDown(e.touches[0]);
+
 window.onmouseup = e => handleOnUp(e);
+
 window.ontouchend = e => handleOnUp(e.touches[0]);
+
 window.onmousemove = e => handleOnMove(e);
+
 window.ontouchmove = e => handleOnMove(e.touches[0]);
