@@ -6,9 +6,9 @@ const handleOnDown = e => {
   // Get all images
   const images = Array.from(track.getElementsByClassName("image"));
 
-  // Reset the transform property for all images
+  // Reset the transform property for all images and scale them down to normal size
   images.forEach(image => {
-    image.style.transform = 'none';
+    image.style.transform = 'scale(1)';
   });
 }
 
