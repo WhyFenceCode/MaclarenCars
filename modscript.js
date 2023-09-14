@@ -20,23 +20,27 @@ const handleOnDown = e => {
 const handleOnUp = () => {
   track.dataset.mouseDownAt = "0";  
   track.dataset.prevPercentage = track.dataset.percentage;
-  
-  // Add code to center the image
-  const nextPercentage = 0;
-  track.dataset.percentage = nextPercentage;
-  
-  if (!isScaled) { // Add this block to scale up the image when the mouse is released
-    for(const image of track.getElementsByClassName("image")) {
-      image.animate({
-        objectPosition: `${100 + nextPercentage}% center`,
-        objectFit: 'cover', // Add this line to make the image fill the full screen
-        height: '100%', // Add this line to make the image fill the full screen
-        width: '100%' // Add this line to make the image fill the full screen
-      }, { duration: 1200, fill: "forwards" });
-    }
-    isScaled = true;
-  }
+
+  // Calculate the center of the screen
+  const center = window.innerWidth / 2;
+
+  // Get all images
+  const images = Array.from(track.getElementsByClassName("image"));
+
+  // Calculate the distance of each image from the center
+  const distances = images.map(image => {
+    const rect = image.getBoundingClientRect();
+    const imageCenter = rect.left + rect.width / 2;
+    return Math.abs(center - imageCenter);
+  });
+
+  // Find the image with the smallest distance
+  const closestImageIndex = distances.indexOf(Math.min(...distances));
+  const closestImage = images[closestImageIndex];
+
+  // Now closestImage is the image closest to the center
 }
+
 
 const handleOnMove = e => {
   if(track.dataset.mouseDownAt === "0") return;
