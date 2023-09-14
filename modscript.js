@@ -1,6 +1,16 @@
 const track = document.getElementById("image-track");
 
-const handleOnDown = e => track.dataset.mouseDownAt = e.clientX;
+const handleOnDown = e => {
+  track.dataset.mouseDownAt = e.clientX;
+
+  // Get all images
+  const images = Array.from(track.getElementsByClassName("image"));
+
+  // Reset the transform property for all images
+  images.forEach(image => {
+    image.style.transform = 'none';
+  });
+}
 
 const handleOnUp = () => {
   track.dataset.mouseDownAt = "0";  
