@@ -17,7 +17,7 @@ body {
 }
 
 #image-track > .image {
-  width: 40vh; /* Adjust the width automatically */
+  width: 15vh; /* Adjust the width automatically */
   height: 100vh; /* Set the height to 100% of the viewport height */
   object-fit: cover;
   object-position: 100% center;
